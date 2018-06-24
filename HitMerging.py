@@ -74,7 +74,11 @@ modules = hits.groupby(truth['particle_id'])['module_id']
 n_hits = list(modules.agg(['count'])['count'].values)
 unique_modules = modules.unique()
 n_unique_modules = [len(i) for i in unique_modules]
-
 sns.jointplot(x='Hits in Track', y='Unique Modules in Track', data=pd.DataFrame({"Hits in Track":n_hits[1:], "Unique Modules in Track":n_unique_modules[1:]}))
-
 sns.heatmap(data=pd.DataFrame({"Hits in Track":n_hits[1:], "Unique Modules in Track":n_unique_modules[1:]}))
+
+modules = long_hits.groupby(long_truth['particle_id'])['module_id']
+n_hits = list(modules.agg(['count'])['count'].values)
+unique_modules = modules.unique()
+n_unique_modules = [len(i) for i in unique_modules]
+sns.jointplot(np.array(n_hits[1:]), np.array(n_unique_modules[1:]), kind='kde')
